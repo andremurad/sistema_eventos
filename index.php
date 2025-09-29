@@ -1,12 +1,41 @@
 <?php
-$ok= '';
-$erro='';
-if($_SERVER['REQUEST_METHOD'] === 'POST'){
+$ok = '';
+$erro = '';
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $titulo = trim($_POST['titulo'] ?? '');
     $data = trim($_POST['data'] ?? '');
     $hora = trim($_POST['hora'] ?? '');
     $local = trim($_POST['local'] ?? '');
     $descricao = trim($_POST['descricao'] ?? '');
+
+    if (!$titulo || !$data || !$hora || !$local || !$descricao) {
+        $erro = "Preencha todos os campos !";
+    }
+
+    // Upload Imagem
+    $caminhoImagem = '';
+    if (empty($erro) && !empty($_FILES['imagem']['name']) && $_FILES['imagem']['error'] === UPLOAD_ERR_OK) {
+
+        $tamMax = 2 * 1024 * 124;
+        if ($_FILES['imagem']['size'] > $tamMax) {
+            $erro = "Imagem ta grande em !! (Máx. 2mb)";
+        } else {
+            $nomeOriginal = basename((string)$_FILES['imagem']['name']);
+            $nomeOriginal = preg_replace('/[^A-Za-z0-9_.-', '_', $nomeOriginal);
+            $nomeFinal = time() . '_' . $nomeOriginal;
+
+            $destino = __DIR__ . '/uploads/' . $nomeFinal;
+
+            if (move_uploaded_file($_FILES['imagem']['tmp_name'], $destino)) {
+                $caminhoImagem = 'uploads/' . $nomeFinal;
+            } else {
+                $erro = "Falha ao salvar a imagem.";
+            }
+        }
+        if($empty($erro)){
+            echo "deu certooooo";
+        }
+    }
 }
 ?>
 
