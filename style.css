@@ -1,0 +1,160 @@
+/* style.css — tema escuro com cards em vidro, grid e form didático */
+
+:root{
+  --fundo:#0f172a;
+  --vidro:#111827;
+  --texto:#e5e7eb;
+  --suave:#b6bed3;
+  --borda:#1f2937;
+  --prim:#22c55e;
+  --perigo:#ef4444;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu;
+  color:var(--texto);
+  background:var(--fundo);
+  line-height:1.6;
+  min-height:100dvh;
+  display:flex;
+  flex-direction:column;
+}
+
+.bg{
+  position:fixed; inset:0;
+  background:
+    radial-gradient(60vw 60vw at 10% -10%, rgba(34,197,94,0.18), transparent 70%),
+    radial-gradient(55vw 55vw at 100% 0%, rgba(59,130,246,0.14), transparent 65%),
+    radial-gradient(50vw 50vw at 80% 80%, rgba(236,72,153,0.10), transparent 70%);
+  pointer-events:none;
+  filter: blur(1.2px);
+}
+
+.container{max-width:1000px; margin:0 auto; padding:16px}
+.topo{margin:8px 0 16px}
+.logo{margin:0 0 4px}
+.sub{margin:0; color:var(--suave)}
+
+.grid{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap:16px;
+}
+@media (max-width: 840px){
+  .grid{grid-template-columns:1fr}
+}
+
+.card{
+  background:color-mix(in oklab, var(--vidro), black 14%);
+  border:1px solid var(--borda);
+  border-radius:16px;
+  padding:16px;
+  box-shadow: 0 10px 28px rgba(0,0,0,.25);
+  backdrop-filter: blur(6px);
+}
+.card_titulo{margin:0 0 12px}
+
+.form{display:grid; gap:12px}
+.campo{display:grid; gap:6px}
+.campo > span{color:var(--suave); font-size:.95rem}
+input[type="text"], input[type="date"], input[type="time"], textarea{
+  width:100%;
+  padding:10px;
+  background:#0b1220;
+  color:var(--texto);
+  border:1px solid var(--borda);
+  border-radius:10px;
+}
+textarea{resize:vertical}
+.dupla{display:grid; grid-template-columns:1fr 1fr; gap:12px}
+@media (max-width:560px){ .dupla{grid-template-columns:1fr} }
+
+.botao_primario{
+  appearance:none; border:0; padding:12px 16px; border-radius:12px;
+  background:var(--prim); color:#06210f; font-weight:700; cursor:pointer;
+  box-shadow:0 10px 22px rgba(34,197,94,.25);
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.botao_primario:hover{ transform: translateY(-1px); }
+.botao_primario:active{ transform: translateY(0); }
+
+.aviso{ padding:12px 14px; border-radius:10px; margin-bottom:12px; font-weight:600 }
+.aviso.ok{ background: rgba(34,197,94,.12); border:1px solid rgba(34,197,94,.35); }
+.aviso.erro{ background: rgba(239,68,68,.12); border:1px solid rgba(239,68,68,.35); }
+
+.lista_eventos{ display:grid; gap:12px }
+.evento{
+  background: rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:12px;
+  padding:12px;
+  display:grid;
+  gap:8px;
+}
+.thumb{
+  width:100%;
+  max-height:220px;
+  object-fit:cover;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,.12);
+}
+.ev_titulo{ margin:4px 0 0; font-size:18px }
+.ev_meta{ margin:0; color:var(--suave); font-size:14px }
+.muted{ color:var(--suave); opacity:.85 }
+
+main{ flex:1 }
+.rodape{
+  margin-top:auto;
+  display:flex;
+  justify-content:center;
+  padding:12px 0 20px;
+}
+.rodape .container{ text-align:center; color:var(--suave) }
+
+/* Apenas o input file */
+input[type="file"]{
+  width:100%;
+  padding:10px;
+  background:#0b1220;
+  color:var(--texto);
+  border:1px solid var(--borda);
+  border-radius:10px;
+  cursor:pointer;
+  transition:border-color .15s ease, box-shadow .15s ease;
+}
+input[type="file"]::file-selector-button{
+  margin-right:12px;
+  padding:10px 14px;
+  border:0;
+  border-radius:8px;
+  background:var(--prim);
+  color:#06210f;
+  font-weight:700;
+  cursor:pointer;
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+input[type="file"]:hover::file-selector-button{
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(34,197,94,.25);
+}
+input[type="file"]:active::file-selector-button{
+  transform: translateY(0);
+  box-shadow: none;
+}
+input[type="file"]:focus-visible{
+  outline:2px solid var(--prim);
+  outline-offset:2px;
+}
+input[type="file"]::-webkit-file-upload-button{
+  margin-right:12px;
+  padding:10px 14px;
+  border:0;
+  border-radius:8px;
+  background:var(--prim);
+  color:#06210f;
+  font-weight:700;
+  cursor:pointer;
+}
